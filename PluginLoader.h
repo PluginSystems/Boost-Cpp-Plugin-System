@@ -14,10 +14,6 @@
 namespace ysl {
 
 
-
-
-        boost::shared_ptr<IPlugin> create_plugin();   // Forward declaration
-
     class PluginLoader {
 
     protected:
@@ -26,7 +22,7 @@ namespace ysl {
 
     public:
 
-        PluginLoader(std::string &filePath);
+        PluginLoader(const std::string &filePath);
 
         void disable(const std::string &pluginName);
 
@@ -40,17 +36,13 @@ namespace ysl {
 
         void unload();
 
-        std::unordered_map<std::string, std::shared_ptr<IPlugin>> getLoadedPlugins();
+
+        boost::shared_ptr<IPlugin> getPlugin(const std::string &pluginName);
 
         void unload(const std::string &pluginName);
     };
 
-
 };
 
-BOOST_DLL_ALIAS(
-        ysl::create_plugin,                        // <-- this function is exported with...
-        create_plugin                                       // <-- ...this alias name
-)
 
 #endif //CPPBOOSTPLUGINSYSTEM_PLUGINLOADER_H

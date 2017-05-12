@@ -11,7 +11,7 @@
 
 
 
-ysl::PluginLoader::PluginLoader(std::string &filePath) {
+ysl::PluginLoader::PluginLoader(const std::string &filePath) {
     this->filePath=filePath;
 }
 
@@ -64,4 +64,18 @@ void ysl::PluginLoader::enable() {
 
 void ysl::PluginLoader::unload() {
     pluginFiles.clear();
+}
+
+boost::shared_ptr<IPlugin> ysl::PluginLoader::getPlugin(const std::string &pluginName) {
+    return pluginFiles[pluginName];
+
+}
+
+
+void ysl::PluginLoader::disable(const std::string &pluginName) {
+    pluginFiles[pluginName]->onDisable();
+}
+
+void ysl::PluginLoader::enable(const std::string &pluginName) {
+    pluginFiles[pluginName]->onEnable();
 }

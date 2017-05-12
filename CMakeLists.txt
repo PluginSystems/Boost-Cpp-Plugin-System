@@ -18,18 +18,18 @@ endif()
 include_directories(${Boost_INCLUDE_DIRS})
 
 
-set(SOURCE_FILES main.cpp IPlugin.h PluginLoader.cpp PluginLoader.h HelloPlugin.cpp Plugin.h)
+set(SOURCE_FILES main.cpp IPlugin.h PluginLoader.cpp PluginLoader.h HelloPlugin.cpp)
 add_executable(CppBoostPluginSystem ${SOURCE_FILES})
 
 
 set(LIBRARY_FILES HelloPlugin.cpp IPlugin.h)
 
-add_library(BoostPlugin ${LIBRARY_FILES})
+add_library(BoostPlugin SHARED ${LIBRARY_FILES})
 
 if(Boost_FOUND)
 
     target_link_libraries(CppBoostPluginSystem ${Boost_LIBRARIES})
-    target_link_libraries(BoostPlugin ${Boost_LIBRARIES} IPlugin.h)
+    target_link_libraries(BoostPlugin ${Boost_LIBRARIES})
 
 endif()
 

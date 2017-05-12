@@ -29,6 +29,6 @@ namespace pl {
 
 
     extern "C" BOOST_SYMBOL_EXPORT HelloPlugin plugin;
-    //HelloPlugin plugin;
+    HelloPlugin plugin;
 
 }
