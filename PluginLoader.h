@@ -40,6 +40,7 @@ namespace ysl {
         boost::shared_ptr<IPlugin> getPlugin(const std::string &pluginName);
 
         void unload(const std::string &pluginName);
+        void load(const std::string &pluginName);
     };
 
 };

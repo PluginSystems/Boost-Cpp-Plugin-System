@@ -10,18 +10,17 @@
 #include "PluginLoader.h"
 
 
-
 ysl::PluginLoader::PluginLoader(const std::string &filePath) {
-    this->filePath=filePath;
+    this->filePath = filePath;
 }
 
 void ysl::PluginLoader::load() {
 
     boost::filesystem::path lib_path(filePath);
-    boost::shared_ptr<IPlugin> plugin;
+
     std::cout << "Loading the plugin" << std::endl;
 
-    std::cout << "plugindirectory: "<<lib_path.filename() << std::endl;
+    std::cout << "plugindirectory: " << lib_path.filename() << std::endl;
 
     boost::filesystem::create_directories(lib_path);
 
@@ -29,33 +28,21 @@ void ysl::PluginLoader::load() {
 
         for (auto &entry : boost::make_iterator_range(boost::filesystem::directory_iterator(lib_path), {})) {
             std::cout << entry << "\n";
-
-            plugin = boost::dll::import<IPlugin>(
-                    entry.path(),
-                    "plugin",
-                    boost::dll::load_mode::append_decorations
-            );
-
-            pluginFiles[plugin->getName()]=plugin;
+            this->load(entry.path().generic_string());
         }
-
-        //todo write further http://www.boost.org/doc/libs/1_64_0/doc/html/boost_dll/tutorial.html
-
     }
-
-
 }
 
 
 void ysl::PluginLoader::disable() {
-    for (auto& plugin : pluginFiles) {
+    for (auto &plugin : pluginFiles) {
         plugin.second->onDisable();
     }
 }
 
 void ysl::PluginLoader::enable() {
 
-    for(auto& plugin : pluginFiles){
+    for (auto &plugin : pluginFiles) {
         plugin.second->onEnable();
     }
 
@@ -78,4 +65,21 @@ void ysl::PluginLoader::disable(const std::string &pluginName) {
 
 void ysl::PluginLoader::enable(const std::string &pluginName) {
     pluginFiles[pluginName]->onEnable();
+}
+
+
+void ysl::PluginLoader::unload(const std::string &pluginName) {
+    pluginFiles.erase(pluginName);
+}
+
+
+void ysl::PluginLoader::load(const std::string &pluginName) {
+
+    boost::shared_ptr<IPlugin> plugin = boost::dll::import<IPlugin>(
+            pluginName,
+            "plugin",
+            boost::dll::load_mode::append_decorations
+    );
+
+    pluginFiles[plugin->getName()] = plugin;
 }
