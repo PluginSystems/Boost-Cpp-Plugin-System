@@ -4,6 +4,7 @@ project(CppBoostPluginSystem)
 set(CMAKE_CXX_STANDARD 11)
 
 find_package(Boost 1.64.0 COMPONENTS system filesystem REQUIRED)
+find_package(hayai)
 
 if(Boost_FOUND)
 
@@ -18,11 +19,13 @@ endif()
 include_directories(${Boost_INCLUDE_DIRS})
 
 
-set(SOURCE_FILES main.cpp IPlugin.h PluginLoader.cpp PluginLoader.h HelloPlugin.cpp)
+set(SOURCE_FILES
+        main.cpp IPlugin.h PluginLoader.cpp PluginLoader.h HelloPlugin.cpp
+        tests/TestCase.h tests/BenchmarkRun.cpp tests/BenchmarkRun.h tests/util/Stopwatch.h tests/util/Stopwatch.cpp tests/benchmarks/LoadAndUnloadBenchmark.h)
 add_executable(CppBoostPluginSystem ${SOURCE_FILES})
 
 
-set(LIBRARY_FILES HelloPlugin.cpp IPlugin.h)
+set(LIBRARY_FILES HelloPlugin.cpp IPlugin.h tests/benchmarks/EnableAndDisableBenchmark.h)
 
 add_library(BoostPlugin SHARED ${LIBRARY_FILES})
 
@@ -32,4 +35,8 @@ if(Boost_FOUND)
     target_link_libraries(BoostPlugin ${Boost_LIBRARIES})
 
 endif()
+
+#target_link_libraries(sample
+ #       hayai_main
+  #      )
 

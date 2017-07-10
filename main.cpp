@@ -1,31 +1,39 @@
 #include <iostream>
 #include <boost/dll/import.hpp>
-#include <boost/range.hpp>
-#include "IPlugin.h"
 #include "PluginLoader.h"
+#include "tests/TestCase.h"
+#include "tests/benchmarks/LoadAndUnloadBenchmark.h"
+#include "tests/benchmarks/EnableAndDisableBenchmark.h"
 
 int main(int argc, char *argv[]) {
 
 
 
-
-    ysl::PluginLoader loader("plugins");
-
-    loader.load();
-
-    loader.enable();
+    std::list<std::shared_ptr<TestCase>> benchmarks;
 
 
-    std::cout << "HelloPlugin Name:  "<<loader.getPlugin("HelloPlugin")->getName() << std::endl;
-
-    loader.disable("HelloPlugin");
-    loader.enable("HelloPlugin");
+    benchmarks.push_back(std::shared_ptr<TestCase>(new LoadAndUnloadBenchmark()));
+    benchmarks.push_back(std::shared_ptr<TestCase>(new EnableAndDisableBenchmark()));
 
 
+    int count = 100;
 
-    loader.disable();
+    for (std::shared_ptr<TestCase> testCase: benchmarks) {
+        testCase->runTestFully(count);
+        std::cout << "Test run finished" << std::endl;
+    }
 
-    loader.unload();
+
+    std::ostream &out = std::cout;
+
+
+    for (std::shared_ptr<TestCase> finishedBenchmark : benchmarks) {
+        finishedBenchmark->printStats(out);
+    }
+
+
+
+
 
 
 
