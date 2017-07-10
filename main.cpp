@@ -38,17 +38,3 @@ int main(int argc, char *argv[]) {
 
 
 }
-/*
-    std::string dir("./plugins");
-    ysl::PluginLoader p(dir);
-
-    p.load();
-    p.enable();
-    p.disable();
-
-    p.unload();
-
-    return 0;
-}
-
- */
