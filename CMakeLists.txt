@@ -4,7 +4,6 @@ project(CppBoostPluginSystem)
 set(CMAKE_CXX_STANDARD 11)
 
 find_package(Boost 1.64.0 COMPONENTS system filesystem REQUIRED)
-find_package(hayai)
 
 if(Boost_FOUND)
 
@@ -35,8 +34,3 @@ if(Boost_FOUND)
     target_link_libraries(BoostPlugin ${Boost_LIBRARIES})
 
 endif()
-
-#target_link_libraries(sample
- #       hayai_main
-  #      )
-

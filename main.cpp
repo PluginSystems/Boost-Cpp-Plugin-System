@@ -1,5 +1,7 @@
 #include <iostream>
 #include <boost/dll/import.hpp>
+#include <sstream>
+#include <fstream>
 #include "PluginLoader.h"
 #include "tests/TestCase.h"
 #include "tests/benchmarks/LoadAndUnloadBenchmark.h"
@@ -10,11 +12,12 @@ int main(int argc, char *argv[]) {
 
     std::list<std::shared_ptr<TestCase>> benchmarks;
 
+    ysl::PluginLoader loader("plugin");
 
-    benchmarks.push_back(std::shared_ptr<TestCase>(new LoadAndUnloadBenchmark()));
-    benchmarks.push_back(std::shared_ptr<TestCase>(new EnableAndDisableBenchmark()));
+    benchmarks.push_back(std::make_shared<LoadAndUnloadBenchmark>(LoadAndUnloadBenchmark(loader)));
+    benchmarks.push_back(std::make_shared<EnableAndDisableBenchmark>(EnableAndDisableBenchmark(loader)));
 
-    unsigned long count = 100;
+    unsigned long count = 250;
 
     for (std::shared_ptr<TestCase> testCase: benchmarks) {
         testCase->runTestFully(count);
@@ -22,17 +25,24 @@ int main(int argc, char *argv[]) {
     }
 
 
-    std::ostream &out = std::cout;
 
+    std::stringstream fileName;
+
+    fileName << "results_"<< count << "_" << std::chrono::system_clock::now().time_since_epoch().count() << ".csv";
+
+    std::ofstream resultFile;
+
+
+    resultFile.open(fileName.str());
 
     for (std::shared_ptr<TestCase> finishedBenchmark : benchmarks) {
-        finishedBenchmark->printStats(out);
+        finishedBenchmark->printStats(resultFile);
     }
 
+    benchmarks.clear();
 
+    resultFile.close();
 
-
-
-
+    return 0;
 
 }

@@ -2,56 +2,36 @@
 // Created by yannick lamprecht on 10.07.17.
 //
 
-#include <iostream>
+#ifndef QTPLUGINTEST_LOADANDUNLOADBENCHMARK_H
+#define QTPLUGINTEST_LOADANDUNLOADBENCHMARK_H
+
+
 #include "../TestCase.h"
-#include "../../PluginLoader.h"
 
-#ifndef CPPBOOSTPLUGINSYSTEM_LOADANDUNLOADBENCHMARK_H
-#define CPPBOOSTPLUGINSYSTEM_LOADANDUNLOADBENCHMARK_H
-
-#endif //CPPBOOSTPLUGINSYSTEM_LOADANDUNLOADBENCHMARK_H
-
-
-class LoadAndUnloadBenchmark : public TestCase{
-
+class LoadAndUnloadBenchmark : public TestCase {
 
 protected:
 
+public:
+    LoadAndUnloadBenchmark(ysl::PluginLoader &pluginLoader) : TestCase(pluginLoader) {}
+
+protected:
     void runTest(unsigned long cycle) override {
-
-
-        ysl::PluginLoader loader("plugins");
-
-
         startTimer();
         loader.load();
 
-        /*
-        loader.enable();
-
-
-        //std::cout << "HelloPlugin Name:  "<<loader.getPlugin("HelloPlugin")->getName() << std::endl;
-
-        loader.disable("HelloPlugin");
-        loader.enable("HelloPlugin");
-
-
-
-        loader.disable();
-         */
 
         loader.unload();
 
         stopTimer();
-
-        defineBenchmarkPoint(cycle,getName());
-
+        defineBenchmarkPoint(cycle,getName()+"_"+std::to_string(cycle+1));
         resetTimer();
-
     }
 
     std::string getName() override {
         return "LoadAndUnloadBenchmark";
     }
-
 };
+
+
+#endif //QTPLUGINTEST_LOADANDUNLOADBENCHMARK_H
