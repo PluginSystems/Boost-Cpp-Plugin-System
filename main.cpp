@@ -20,7 +20,9 @@ int main(int argc, char *argv[]) {
     unsigned long count = 250;
 
     for (std::shared_ptr<TestCase> testCase: benchmarks) {
+        testCase->setUp();
         testCase->runTestFully(count);
+        testCase->tearDown();
         std::cout << "Test run finished" << std::endl;
     }
 

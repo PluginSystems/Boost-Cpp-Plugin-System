@@ -5,12 +5,12 @@
 #include <iostream>
 #include "BenchmarkRun.h"
 
-void BenchmarkRun::defineBenchmarkPoint(std::string benchmarkPointName, long microsElapsed) {
-    _stats.insert({benchmarkPointName,microsElapsed});
+void BenchmarkRun::defineBenchmarkPoint(std::string benchmarkPointName, long nanosElapsed) {
+    _stats.insert({benchmarkPointName,nanosElapsed});
 }
 
-void BenchmarkRun::defineBenchmarkPoint(std::string benchmarkPointName, int run, long microsElapsed) {
-    _stats[benchmarkPointName + std::to_string(run)] = microsElapsed;
+void BenchmarkRun::defineBenchmarkPoint(std::string benchmarkPointName, int run, long nanosElapsed) {
+    _stats[benchmarkPointName + std::to_string(run)] = nanosElapsed;
 }
 
 std::list<std::string> BenchmarkRun::getStatsCommaSeparatedList() {

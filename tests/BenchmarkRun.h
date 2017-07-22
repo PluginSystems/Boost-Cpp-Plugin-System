@@ -20,9 +20,9 @@ private:
 
 public:
 
-    void defineBenchmarkPoint(std::string benchmarkPointName, long microsElapsed);
+    void defineBenchmarkPoint(std::string benchmarkPointName, long nanosElapsed);
 
-    void defineBenchmarkPoint(std::string benchmarkPointName, int run, long microsElapsed);
+    void defineBenchmarkPoint(std::string benchmarkPointName, int run, long nanosElapsed);
 
     std::list<std::string> getStatsCommaSeparatedList();
 
