@@ -7,19 +7,15 @@
 
 
 #include <string>
+    class IPlugin {
 
-class IPlugin {
+    public:
 
-public:
+        virtual void onEnable()= 0;
 
-    virtual void onEnable()= 0;
+        virtual void onDisable()= 0;
 
-    virtual void onDisable()= 0;
-
-    virtual std::string getName()=0;
-
-
-};
-
+        virtual std::string getName()=0;
+    };
 
 #endif //CPPBOOSTPLUGINSYSTEM_IPLUGIN_H

@@ -8,7 +8,7 @@
 #ifndef QTPLUGINTEST_ENABLEDISABLETEST_H
 #define QTPLUGINTEST_ENABLEDISABLETEST_H
 
-#endif //QTPLUGINTEST_ENABLEDISABLETEST_H
+
 
 
 class EnableAndDisableBenchmark : public TestCase{
@@ -44,7 +44,10 @@ protected:
 
     }
 
+public:
     std::string getName() override {
         return "EnableAndDisableBenchmark";
     }
 };
+
+#endif //QTPLUGINTEST_ENABLEDISABLETEST_H

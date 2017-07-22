@@ -19,18 +19,30 @@ include_directories(${Boost_INCLUDE_DIRS})
 
 
 set(SOURCE_FILES
-        main.cpp IPlugin.h PluginLoader.cpp PluginLoader.h HelloPlugin.cpp
-        tests/TestCase.h tests/BenchmarkRun.cpp tests/BenchmarkRun.h tests/util/Stopwatch.h tests/util/Stopwatch.cpp tests/benchmarks/LoadAndUnloadBenchmark.h)
+        main.cpp
+        IPlugin.h
+        PluginLoader.cpp
+        PluginLoader.h
+        tests/TestCase.h
+        tests/BenchmarkRun.cpp
+        tests/BenchmarkRun.h
+        tests/util/Stopwatch.h
+        tests/util/Stopwatch.cpp
+        tests/benchmarks/LoadAndUnloadBenchmark.h
+        tests/benchmarks/EnableAndDisableBenchmark.h)
 add_executable(CppBoostPluginSystem ${SOURCE_FILES})
 
 
-set(LIBRARY_FILES HelloPlugin.cpp IPlugin.h tests/benchmarks/EnableAndDisableBenchmark.h)
+set(FIRST HelloPlugin.cpp IPlugin.h)
+set(SECOND SecondPlugin.cpp IPlugin.h)
 
-add_library(BoostPlugin SHARED ${LIBRARY_FILES})
+add_library(FirstPlugin SHARED ${FIRST})
+add_library(SecondPlugin SHARED ${SECOND})
 
 if(Boost_FOUND)
 
     target_link_libraries(CppBoostPluginSystem ${Boost_LIBRARIES})
-    target_link_libraries(BoostPlugin ${Boost_LIBRARIES})
+    target_link_libraries(FirstPlugin ${Boost_LIBRARIES})
+    target_link_libraries(SecondPlugin ${Boost_LIBRARIES})
 
 endif()

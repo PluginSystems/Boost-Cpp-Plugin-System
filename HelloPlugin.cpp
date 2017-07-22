@@ -25,10 +25,15 @@ namespace pl {
         std::string getName() override {
             return "HelloPlugin";
         }
+
+
     };
 
 
-    extern "C" BOOST_SYMBOL_EXPORT HelloPlugin plugin;
-    HelloPlugin plugin;
 
+
+
+    extern "C" BOOST_SYMBOL_EXPORT HelloPlugin plugin;
+
+    HelloPlugin plugin;
 }

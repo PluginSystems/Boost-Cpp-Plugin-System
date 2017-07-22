@@ -33,9 +33,6 @@ protected:
 
     virtual void runTest(unsigned long cycle)=0;
 
-    virtual std::string getName()=0;
-
-
     void startTimer() {
         stopwatch.startTimer();
     }
@@ -63,6 +60,8 @@ public:
     }
 
 
+    virtual std::string getName()=0;
+
     virtual void setUp(){}
     virtual void tearDown(){}
 
@@ -81,8 +80,6 @@ public:
 
 
     void printStats(std::ostream &outputStream) {
-        outputStream << "Benchmark " << getName() << ";nanoseconds/op" << std::endl;
-
         for (auto benchmark : benchmarkRuns) {
             benchmark.printStats(outputStream);
         }

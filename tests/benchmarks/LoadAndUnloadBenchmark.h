@@ -20,13 +20,14 @@ protected:
         startTimer();
         loader.load();
 
-
         loader.unload();
 
         stopTimer();
         defineBenchmarkPoint(cycle,getName()+"_"+std::to_string(cycle+1));
         resetTimer();
     }
+
+public:
 
     std::string getName() override {
         return "LoadAndUnloadBenchmark";
