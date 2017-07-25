@@ -5,9 +5,10 @@
 #include <iostream>
 #include <boost/dll/alias.hpp>
 #include "IPlugin.h"
+#include "StringFace.h"
 
 namespace ysl {
-    class SecondPlugin : IPlugin {
+    class SecondPlugin : IPlugin, public StringFace {
 
     public:
         void onEnable() override {
@@ -21,6 +22,14 @@ namespace ysl {
 
         std::string getName() override {
             return "SecondPlugin";
+        }
+
+        void printMessage(std::string message) override {
+            std::cout << getName() << " saying " << message << std::endl;
+        }
+
+        std::string modifyMessage(std::string message) override {
+            return getName() + " returning "+ message;
         }
 
     };

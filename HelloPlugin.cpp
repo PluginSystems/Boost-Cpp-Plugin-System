@@ -7,10 +7,11 @@
 #include <boost/limits.hpp>
 #include <boost/shared_ptr.hpp>
 #include "IPlugin.h"
+#include "StringFace.h"
 
 
 namespace pl {
-    class HelloPlugin : public IPlugin {
+    class HelloPlugin : public IPlugin, public StringFace{
 
     public:
         void onEnable() override {
@@ -26,10 +27,16 @@ namespace pl {
             return "HelloPlugin";
         }
 
+        void printMessage(std::string message) override {
+            std::cout << getName() << " saying " << message << std::endl;
+        }
+
+        std::string modifyMessage(std::string message) override {
+            return getName() + " returning "+ message;
+        }
+
 
     };
-
-
 
 
 

@@ -29,12 +29,16 @@ set(SOURCE_FILES
         tests/util/Stopwatch.h
         tests/util/Stopwatch.cpp
         tests/benchmarks/LoadAndUnloadBenchmark.h
-        tests/benchmarks/EnableAndDisableBenchmark.h)
+        tests/benchmarks/EnableAndDisableBenchmark.h
+        tests/benchmarks/ContextSwitchBenchmark.h
+        tests/benchmarks/ContextSwitchReturnTypeBenchmark.h
+        StringFace.h
+        )
 add_executable(CppBoostPluginSystem ${SOURCE_FILES})
 
 
-set(FIRST HelloPlugin.cpp IPlugin.h)
-set(SECOND SecondPlugin.cpp IPlugin.h)
+set(FIRST HelloPlugin.cpp IPlugin.h StringFace.h)
+set(SECOND SecondPlugin.cpp IPlugin.h StringFace.h)
 
 add_library(FirstPlugin SHARED ${FIRST})
 add_library(SecondPlugin SHARED ${SECOND})
