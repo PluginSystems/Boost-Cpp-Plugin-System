@@ -5,6 +5,7 @@
 #ifndef CPPBOOSTPLUGINSYSTEM_CONTEXTSWITCHRETURNTYPEBENCHMARK_H
 #define CPPBOOSTPLUGINSYSTEM_CONTEXTSWITCHRETURNTYPEBENCHMARK_H
 
+#include <iostream>
 #include "../TestCase.h"
 #include "../../PluginLoader.h"
 #include "../../StringFace.h"
@@ -32,7 +33,7 @@ protected:
         boost::shared_ptr<IPlugin> plugin = loader.getPlugin("HelloPlugin");
 
         if(boost::shared_ptr<StringFace> face = boost::dynamic_pointer_cast<StringFace>(plugin)){
-            face->modifyMessage(getName());
+            std::cout << face->modifyMessage(getName()) << std::endl;
         }
 
 
