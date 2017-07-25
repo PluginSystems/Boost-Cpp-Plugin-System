@@ -21,39 +21,39 @@ int main(int argc, char *argv[]) {
     benchmarks.push_back(std::make_shared<ContextSwitchBenchmark>(ContextSwitchBenchmark(loader)));
     benchmarks.push_back(std::make_shared<ContextSwitchReturnTypeBenchmark>(ContextSwitchReturnTypeBenchmark(loader)));
 
-    unsigned long long count = 10;
+    // 10 50 70 100 250
 
-    for (std::shared_ptr<TestCase> testCase: benchmarks) {
-        testCase->setUp();
-        testCase->runTestFully(count);
-        testCase->tearDown();
-        std::cout << "Test run finished" << std::endl;
+    std::list<unsigned long> rounds = {10,50,70,100,250};
+
+    long time = std::chrono::system_clock::now().time_since_epoch().count();
+
+    for (auto count : rounds) {
+
+        for (std::shared_ptr<TestCase> testCase: benchmarks) {
+            testCase->setUp();
+            testCase->runTestFully(count);
+            testCase->tearDown();
+            std::cout << "Test run finished" << std::endl;
+        }
+
+
+        for (std::shared_ptr<TestCase> finishedBenchmark : benchmarks) {
+
+            std::ofstream resultFileStream;
+
+            std::stringstream filename;
+
+            filename << "results_" << count << "_" << finishedBenchmark->getName() << "_nanoseconds_"
+                     << time << ".csv";
+
+
+            resultFileStream.open(filename.str());
+
+            finishedBenchmark->printStats(resultFileStream);
+
+            resultFileStream.close();
+        }
     }
-
-
-
-
-
-
-
-
-
-    for (std::shared_ptr<TestCase> finishedBenchmark : benchmarks) {
-
-        std::stringstream fileName;
-
-        fileName << "results_"<<finishedBenchmark->getName()<<"_precision_nanoseconds"<<"_"<<"_"<< count << "_" << std::chrono::system_clock::now().time_since_epoch().count() << ".csv";
-
-        std::ofstream resultFile;
-
-        resultFile.open(fileName.str());
-
-        finishedBenchmark->printStats(resultFile);
-
-        resultFile.close();
-
-    }
-
     benchmarks.clear();
 
 

@@ -32,7 +32,7 @@ protected:
         boost::shared_ptr<IPlugin> plugin = loader.getPlugin("HelloPlugin");
 
         if(boost::shared_ptr<StringFace> face = boost::dynamic_pointer_cast<StringFace>(plugin)){
-            face->printMessage(getName());
+            face->modifyMessage(getName());
         }
 
 
