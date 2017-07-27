@@ -8,7 +8,7 @@
 #include "StringFace.h"
 
 namespace ysl {
-    class SecondPlugin : IPlugin, public StringFace {
+    class SecondPlugin : IPlugin {
 
     public:
         void onEnable() override {
@@ -24,13 +24,7 @@ namespace ysl {
             return "SecondPlugin";
         }
 
-        void printMessage(std::string message) override {
-            std::cout << getName() << " saying " << message << std::endl;
-        }
 
-        std::string modifyMessage(std::string message) override {
-            return getName() + " returning "+ message;
-        }
 
     };
 

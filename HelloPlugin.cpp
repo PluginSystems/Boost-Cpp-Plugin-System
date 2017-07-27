@@ -15,25 +15,19 @@ namespace pl {
 
     public:
         void onEnable() override {
-            std::cout << "Hello Mister" << std::endl;
 
         }
 
         void onDisable() override {
-            std::cout << "Goodbye Mister" << std::endl;
         }
 
         std::string getName() override {
             return "HelloPlugin";
         }
 
-        void printMessage(std::string message) override {
-            std::cout << getName() << " saying " << message << std::endl;
-        }
 
-        std::string modifyMessage(std::string message) override {
-            return getName() + " returning "+ message;
-        }
+        void test()override {}
+
 
 
     };

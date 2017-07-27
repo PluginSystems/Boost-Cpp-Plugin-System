@@ -28,14 +28,11 @@ protected:
 
     void runTest(unsigned long cycle) override {
 
+        boost::shared_ptr<IPlugin> plugin = loader.getPlugin("HelloPlugin");
         startTimer();
 
-        boost::shared_ptr<IPlugin> plugin = loader.getPlugin("HelloPlugin");
-
-
-
         if(boost::shared_ptr<StringFace> face = boost::dynamic_pointer_cast<StringFace>(plugin)){
-            face->printMessage(getName());
+            face->test();
         }
 
 

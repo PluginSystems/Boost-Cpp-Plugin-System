@@ -18,16 +18,16 @@ void ysl::PluginLoader::load() {
 
     boost::filesystem::path lib_path(filePath);
 
-    std::cout << "Loading the plugin" << std::endl;
+    //std::cout << "Loading the plugin" << std::endl;
 
-    std::cout << "plugindirectory: " << lib_path.filename() << std::endl;
+    //std::cout << "plugindirectory: " << lib_path.filename() << std::endl;
 
     boost::filesystem::create_directories(lib_path);
 
     if (boost::filesystem::is_directory(lib_path)) {
 
         for (auto &entry : boost::make_iterator_range(boost::filesystem::directory_iterator(lib_path), {})) {
-            std::cout << entry << "\n";
+            //std::cout << entry << "\n";
             this->load(entry.path().generic_string());
         }
     }
