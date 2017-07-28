@@ -11,12 +11,18 @@
 #include "../../StringFace.h"
 
 class ContextSwitchBenchmark : public TestCase {
+private:
+
+    boost::shared_ptr<StringFace> _face;
+
 public:
     ContextSwitchBenchmark(ysl::PluginLoader &pluginLoader) : TestCase(pluginLoader) {}
 
     void setUp() override {
         loader.load();
         loader.enable();
+        boost::shared_ptr<IPlugin> plugin = loader.getPlugin("HelloPlugin");
+        _face = boost::dynamic_pointer_cast<StringFace>(plugin);
     }
 
     void tearDown() override {
@@ -28,11 +34,11 @@ protected:
 
     void runTest(unsigned long cycle) override {
 
-        boost::shared_ptr<IPlugin> plugin = loader.getPlugin("HelloPlugin");
+
         startTimer();
 
-        if(boost::shared_ptr<StringFace> face = boost::dynamic_pointer_cast<StringFace>(plugin)){
-            face->test();
+        if(_face!= nullptr){
+            _face->test();
         }
 
 
